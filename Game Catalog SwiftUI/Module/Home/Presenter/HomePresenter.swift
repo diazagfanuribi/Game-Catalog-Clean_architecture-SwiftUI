@@ -11,7 +11,7 @@ import RxSwift
 class HomePresenter: ObservableObject {
 
     private let disposeBag = DisposeBag()
-    //  private let router = HomeRouter()
+    private let router = HomeRouter()
     private let homeUseCase: HomeUseCase
 
 
@@ -53,12 +53,12 @@ class HomePresenter: ObservableObject {
         }.disposed(by: disposeBag)
     }
   
-//  func linkBuilder<Content: View>(
-//    for category: DeveloperModel,
-//    @ViewBuilder content: () -> Content
-//  ) -> some View {
-//    NavigationLink(
-//    destination: router.makeDetailView(for: category)) { content() }
-//  }
+  func linkBuilder<Content: View>(
+    for game: GameModel,
+    @ViewBuilder content: () -> Content
+  ) -> some View {
+    NavigationLink(
+    destination: router.makeDetailView(for: game)) { content() }
+  }
 
 }

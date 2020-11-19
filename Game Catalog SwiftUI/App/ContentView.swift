@@ -10,14 +10,14 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var homePresenter: HomePresenter
     var body: some View {
-        NavigationView {
-          HomeView(presenter: homePresenter)
+        TabView{
+            NavigationView {
+              HomeView(presenter: homePresenter)
+            }.tabItem {
+                TabItem(imageName: "house", title: "Home")
+            }
         }
+
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

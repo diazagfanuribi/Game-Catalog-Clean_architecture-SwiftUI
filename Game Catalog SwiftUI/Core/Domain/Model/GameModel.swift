@@ -8,9 +8,13 @@
 import Foundation
 
 struct GameModel: Equatable, Identifiable {
-    let id : Double
+    let id : Int
     let name : String
     let rating : Double
     let released : String
     let background: String
+    
+    var ratingString : String{
+        return String(format: "%.2f",rating)
+    }
 }

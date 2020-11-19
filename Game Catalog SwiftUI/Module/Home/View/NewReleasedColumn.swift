@@ -26,7 +26,7 @@ struct NewReleasedColumn: View {
                         .font(.title2)
                         .fontWeight(.semibold)
                     Text("Released : \(game.released)")
-                    Text("Rating : \(game.rating)/5")
+                    Text("Rating : \(game.ratingString)/5")
                     Spacer()
                 }
                 Spacer()

@@ -37,7 +37,7 @@ extension CategoryRow {
   var content: some View {
     VStack(alignment: .leading, spacing: 10) {
       Text(category.name)
-        .font(.title)
+        .font(.title2)
         .bold()
         .lineLimit(nil)
         .foregroundColor(.white)

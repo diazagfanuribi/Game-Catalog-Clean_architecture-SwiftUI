@@ -12,7 +12,7 @@ import RxSwift
 protocol RemoteDataSourceProtocol: class {
     func getDeveloper() -> Observable<[DeveloperResponse]>
     func getGames() -> Observable<[GameResponse]>
-//    func getTopGames() -> Observable<[GameResponse]>
+    func getGameDetail(input game: GameModel) -> Observable<GameDetailResponse>
 }
 
 final class RemoteDataSource: NSObject {
@@ -63,26 +63,25 @@ extension RemoteDataSource: RemoteDataSourceProtocol{
         }
     }
     
-    func getGame() -> Observable<[GameResponse]> {
-        let parameters: [String: String] = ["key": "f942ea3f14aa47d1907cc9b86fa1caae"]
-        return Observable<[GameResponse]>.create{observer in
-            if let url = URL(string: Endpoints.Gets.games.url){
-                AF.request(url,parameters: parameters)
+    func getGameDetail(input game : GameModel) -> Observable<GameDetailResponse> {
+        return Observable<GameDetailResponse>.create{observer in
+            let url_detail = Endpoints.Gets.detail.url + "\(game.id)"
+            if let url = URL(string: url_detail){
+                AF.request(url)
                     .validate()
-                    .responseDecodable(of: GamesResponse.self){ response in
+                    .responseDecodable(of: GameDetailResponse.self){ response in
                         switch response.result{
                         case .success(let value):
-                            observer.onNext(value.results)
+                            observer.onNext(value)
                             observer.onCompleted()
-                        case .failure:
-                            observer.onError(URLError.invalidResponse)
+                        case .failure(let error):
+                            observer.onError(error)
                         }
                     }
             }
             return Disposables.create()
         }
     }
-
     
     
 }
