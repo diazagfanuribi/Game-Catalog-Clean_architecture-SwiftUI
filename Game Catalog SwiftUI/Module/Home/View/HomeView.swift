@@ -34,7 +34,7 @@ struct HomeView: View {
                               self.presenter.developer,
                               id: \.id
                             ) { category in
-                              CategoryRow(category: category)
+                                CategoryRow(category: category)
                             }
                         }
                     }
@@ -63,7 +63,12 @@ struct HomeView: View {
                               self.presenter.game,
                               id: \.id
                             ) { game in
-                              NewReleasedColumn(game: game)
+                                ZStack{
+                                    self.presenter.linkBuilder(for: game){
+                                        NewReleasedColumn(game: game)
+                                    }
+                                }
+                              
                             }
                         
                         }

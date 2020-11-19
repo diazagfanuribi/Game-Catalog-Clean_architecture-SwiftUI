@@ -12,6 +12,8 @@ protocol GameRepositoryProtocol {
     func getDeveloper() -> Observable<[DeveloperModel]>
     
     func getGames()-> Observable<[GameModel]>
+    
+    func getGameDetail(game: GameModel) -> Observable<GameDetailModel>
 }
 
 final class GameRepository: NSObject {
@@ -41,6 +43,11 @@ extension GameRepository : GameRepositoryProtocol {
         return self.remote.getDeveloper()
             .map{Mapper.mapDeveloperResponsesToDomains(input: $0)}
             .filter { !$0.isEmpty }
+    }
+    
+    func getGameDetail(game: GameModel) -> Observable<GameDetailModel> {
+        return self.remote.getGameDetail(input: game)
+            .map{Mapper.mapGameDetailResponseToDomain(input : $0)}
     }
     
     
