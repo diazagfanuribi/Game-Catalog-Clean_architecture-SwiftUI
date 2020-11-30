@@ -11,10 +11,13 @@ import RxSwift
 protocol DetailUseCase {
 
   func getGameDetail() -> Observable<GameDetailModel>
+    
+  func getGameDetail()-> GameDetailModel
 
 }
 
 class DetailInteractor: DetailUseCase {
+    
 
   private let repository: GameRepositoryProtocol
   private let game: GameModel
@@ -31,5 +34,9 @@ class DetailInteractor: DetailUseCase {
   func getGameDetail() -> Observable<GameDetailModel> {
     return repository.getGameDetail(game: game)
   }
+    
+    func getGameDetail() -> GameDetailModel {
+        return GameDetailModel(id: game.id, name: game.name, rating: game.rating, released: game.released, background: game.background, description: "N/A", backgroundAdditional: "", website: "N/A")
+    }
   
 }
