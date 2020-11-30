@@ -34,7 +34,11 @@ struct HomeView: View {
                               self.presenter.developer,
                               id: \.id
                             ) { category in
-                                CategoryRow(category: category)
+                                ZStack {
+                                    self.presenter.linkDeveloperBuilder(for: category){
+                                    CategoryRow(category: category)
+                                    }
+                                }
                             }
                         }
                     }

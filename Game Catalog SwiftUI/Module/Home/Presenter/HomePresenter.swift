@@ -61,4 +61,12 @@ class HomePresenter: ObservableObject {
     destination: router.makeDetailView(for: game)) { content() }
   }
 
+    
+    func linkDeveloperBuilder<Content: View>(
+      for developer: DeveloperModel,
+      @ViewBuilder content: () -> Content
+    ) -> some View {
+      NavigationLink(
+        destination: router.makeDeveloperListView(input: developer.name)) { content() }
+    }
 }

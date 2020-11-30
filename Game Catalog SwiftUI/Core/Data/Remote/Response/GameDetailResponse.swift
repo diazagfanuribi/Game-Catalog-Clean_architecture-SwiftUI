@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameDetailResponse : Decodable{
-    let id : Double?
+    let id : Int?
     let name : String?
     let rating : Double?
     let released : String?

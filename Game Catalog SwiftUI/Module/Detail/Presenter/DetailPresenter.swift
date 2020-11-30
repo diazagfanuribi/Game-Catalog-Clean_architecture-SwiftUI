@@ -15,7 +15,7 @@ class DetailPresenter: ObservableObject {
   private let disposeBag = DisposeBag()
 
 
-  @Published var gameDetail: GameDetailModel?
+  @Published var gameDetail: GameDetailModel
   @Published var errorMessage: String = ""
   @Published var loadingState: Bool = false
     
@@ -27,6 +27,7 @@ class DetailPresenter: ObservableObject {
 
   init(detailUseCase: DetailUseCase) {
     self.detailUseCase = detailUseCase
+    gameDetail = detailUseCase.getGameDetail()
   }
     
     func getDetail(){

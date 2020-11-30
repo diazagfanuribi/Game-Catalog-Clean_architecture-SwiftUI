@@ -13,7 +13,25 @@ struct DetailView: View {
     @ObservedObject var presenter : DetailPresenter
         
     var body: some View {
-        DetailContentView()
+        ZStack{
+            if presenter.loadingState == true{
+                Spacer()
+                ZStack{
+                    ActivityIndicator()
+                }
+                Spacer()
+            }else {
+                DetailContentView(game : self.presenter.gameDetail)
+            }
+            
+
+        }
+        .onAppear{
+            self.presenter.getDetail()
+        }
+        
+        
+        
     }
 }
 

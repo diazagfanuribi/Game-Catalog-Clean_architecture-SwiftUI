@@ -15,5 +15,9 @@ class HomeRouter {
     let presenter = DetailPresenter(detailUseCase: detailUseCase)
     return DetailView(presenter: presenter)
   }
-  
+
+    
+    func makeDeveloperListView(input title : String) -> some View {
+        return DeveloperView(title: title)
+    }
 }
