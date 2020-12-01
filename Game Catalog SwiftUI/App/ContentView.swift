@@ -17,6 +17,11 @@ struct ContentView: View {
                 TabItem(imageName: "house", title: "Home")
             }
             NavigationView{
+                SearchView()
+            }.tabItem {
+                TabItem(imageName: "magnifyingglass", title: "Search")
+            }
+            NavigationView{
                 FavoriteView()
             }.tabItem {
                 TabItem(imageName: "star", title: "Favorite")
