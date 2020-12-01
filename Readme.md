@@ -1,5 +1,5 @@
 
 # Game-Catalog-Clean_architecture-SwiftUI
 
-## mockup using Figma
+## Mockup using Figma
 ![mockup](assets/mockup.gif)
