@@ -7,13 +7,14 @@
 
 import Foundation
 import RxSwift
+import Combine
 
 protocol GameRepositoryProtocol {
-    func getDeveloper() -> Observable<[DeveloperModel]>
+    func getDeveloper() -> AnyPublisher<[DeveloperModel],Error>
     
-    func getGames()-> Observable<[GameModel]>
+    func getGames()-> AnyPublisher<[GameModel],Error>
     
-    func getGameDetail(game: GameModel) -> Observable<GameDetailModel>
+    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel,Error>
 }
 
 final class GameRepository: NSObject {
@@ -31,23 +32,28 @@ final class GameRepository: NSObject {
 }
 
 extension GameRepository : GameRepositoryProtocol {
-    func getGames() -> Observable<[GameModel]> {
+    
+    
+    func getGames() -> AnyPublisher<[GameModel],Error> {
         return self.remote.getGames()
             .map{
                 Mapper.mapGameResponsesToDomains(input: $0)
             }
             .filter{ !$0.isEmpty}
+            .eraseToAnyPublisher()
     }
     
-    func getDeveloper() -> Observable<[DeveloperModel]> {
+    func getDeveloper() -> AnyPublisher<[DeveloperModel],Error> {
         return self.remote.getDeveloper()
             .map{Mapper.mapDeveloperResponsesToDomains(input: $0)}
             .filter { !$0.isEmpty }
+            .eraseToAnyPublisher()
     }
     
-    func getGameDetail(game: GameModel) -> Observable<GameDetailModel> {
+    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel,Error> {
         return self.remote.getGameDetail(input: game)
             .map{Mapper.mapGameDetailResponseToDomain(input : $0)}
+            .eraseToAnyPublisher()
     }
     
     

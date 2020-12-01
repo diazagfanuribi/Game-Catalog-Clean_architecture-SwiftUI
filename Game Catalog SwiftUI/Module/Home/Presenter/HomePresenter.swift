@@ -7,8 +7,12 @@
 import SwiftUI
 import Foundation
 import RxSwift
+import Combine
 
 class HomePresenter: ObservableObject {
+    
+    private var cancellables: Set<AnyCancellable> = []
+
 
     private let disposeBag = DisposeBag()
     private let router = HomeRouter()
@@ -29,28 +33,35 @@ class HomePresenter: ObservableObject {
     func getCategories() {
     loadingStateDeveloperRow = true
     homeUseCase.getDeveloper()
-      .observeOn(mainSceduler)
-      .subscribe { result in
-        self.developer = result
-      } onError: { error in
-        self.errorMessage = error.localizedDescription
-      } onCompleted: {
-        self.loadingStateDeveloperRow = false
-      }.disposed(by: disposeBag)
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: { completion in
+            switch completion {
+            case .failure:
+                self.errorMessage = String(describing: completion)
+            case .finished :
+                self.loadingStateDeveloperRow = false
+            }
+        }, receiveValue: { developer in
+            self.developer = developer
+        })
+        .store(in: &cancellables)
     }
 
     func getGames() {
       loadingStateGameColumn = true
       homeUseCase.getGames()
-        .observeOn(mainSceduler)
-        .subscribe { result in
-          self.game = result
-        } onError: { error in
-            self.loadingStateGameColumn = false
-          self.errorMessage = error.localizedDescription
-        } onCompleted: {
-          self.loadingStateGameColumn = false
-        }.disposed(by: disposeBag)
+        .receive(on: RunLoop.main)
+        .sink(receiveCompletion: { completion in
+            switch completion{
+            case .failure:
+                self.errorMessage = String(describing: completion)
+            case .finished:
+                self.loadingStateGameColumn = false
+            }
+        }, receiveValue: { game in
+            self.game = game
+        })
+        .store(in: &cancellables)
     }
   
   func linkBuilder<Content: View>(
