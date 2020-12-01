@@ -7,11 +7,12 @@
 
 import Foundation
 import RxSwift
+import Combine
 
 protocol HomeUseCase {
 
-  func getDeveloper() -> Observable<[DeveloperModel]>
-  func getGames() -> Observable<[GameModel]>
+  func getDeveloper() -> AnyPublisher<[DeveloperModel],Error>
+  func getGames() -> AnyPublisher<[GameModel],Error>
 }
 
 class HomeInteractor: HomeUseCase {
@@ -22,11 +23,11 @@ class HomeInteractor: HomeUseCase {
     self.repository = repository
   }
   
-  func getDeveloper() -> Observable<[DeveloperModel]> {
+  func getDeveloper() -> AnyPublisher<[DeveloperModel],Error> {
     return repository.getDeveloper()
     }
     
-    func getGames() -> Observable<[GameModel]> {
+    func getGames() -> AnyPublisher<[GameModel],Error> {
         return repository.getGames()
     }
 

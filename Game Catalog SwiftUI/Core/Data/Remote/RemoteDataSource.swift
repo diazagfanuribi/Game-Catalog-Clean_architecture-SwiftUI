@@ -8,11 +8,12 @@
 import Foundation
 import Alamofire
 import RxSwift
+import Combine
 
 protocol RemoteDataSourceProtocol: class {
-    func getDeveloper() -> Observable<[DeveloperResponse]>
-    func getGames() -> Observable<[GameResponse]>
-    func getGameDetail(input game: GameModel) -> Observable<GameDetailResponse>
+    func getDeveloper() -> AnyPublisher<[DeveloperResponse],Error>
+    func getGames() -> AnyPublisher<[GameResponse],Error>
+    func getGameDetail(input game: GameModel) -> AnyPublisher<GameDetailResponse,Error>
 }
 
 final class RemoteDataSource: NSObject {
@@ -24,47 +25,42 @@ final class RemoteDataSource: NSObject {
 }
 
 extension RemoteDataSource: RemoteDataSourceProtocol{
-    
-    func getDeveloper() -> Observable<[DeveloperResponse]> {
-        return Observable<[DeveloperResponse]>.create{observer in
+    func getDeveloper() -> AnyPublisher<[DeveloperResponse], Error> {
+        return Future<[DeveloperResponse],Error>{ completion in
             if let url = URL(string: Endpoints.Gets.developer.url){
                 AF.request(url)
                     .validate()
                     .responseDecodable(of: DevelopersResponse.self){ response in
                         switch response.result{
                         case .success(let value):
-                            observer.onNext(value.results)
-                            observer.onCompleted()
+                            completion(.success(value.results))
                         case .failure:
-                            observer.onError(URLError.invalidResponse)
+                            completion(.failure(URLError.invalidResponse))
                         }
                     }
             }
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func getGames() -> Observable<[GameResponse]> {
-        return Observable<[GameResponse]>.create{observer in
+    func getGames() -> AnyPublisher<[GameResponse], Error> {
+        return Future<[GameResponse],Error>{completion in
             if let url = URL(string: Endpoints.Gets.games.url){
                 AF.request(url)
                     .validate()
                     .responseDecodable(of: GamesResponse.self){ response in
                         switch response.result{
                         case .success(let value):
-                            observer.onNext(value.results)
-                            observer.onCompleted()
+                            completion(.success(value.results))
                         case .failure(let error):
-                            observer.onError(error)
+                            completion(.failure(error))
                         }
                     }
             }
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
-    func getGameDetail(input game : GameModel) -> Observable<GameDetailResponse> {
-        return Observable<GameDetailResponse>.create{observer in
+    func getGameDetail(input game: GameModel) -> AnyPublisher<GameDetailResponse, Error> {
+        return Future<GameDetailResponse,Error>{ completion in
             let url_detail = Endpoints.Gets.detail.url + "\(game.id)"
             if let url = URL(string: url_detail){
                 AF.request(url)
@@ -72,16 +68,73 @@ extension RemoteDataSource: RemoteDataSourceProtocol{
                     .responseDecodable(of: GameDetailResponse.self){ response in
                         switch response.result{
                         case .success(let value):
-                            observer.onNext(value)
-                            observer.onCompleted()
+                            completion(.success(value))
                         case .failure(let error):
-                            observer.onError(error)
+                            completion(.failure(error))
                         }
                     }
             }
-            return Disposables.create()
-        }
+        }.eraseToAnyPublisher()
     }
     
+    
+//    func getDeveloper() -> Observable<[DeveloperResponse]> {
+//        return Observable<[DeveloperResponse]>.create{observer in
+//            if let url = URL(string: Endpoints.Gets.developer.url){
+//                AF.request(url)
+//                    .validate()
+//                    .responseDecodable(of: DevelopersResponse.self){ response in
+//                        switch response.result{
+//                        case .success(let value):
+//                            observer.onNext(value.results)
+//                            observer.onCompleted()
+//                        case .failure:
+//                            observer.onError(URLError.invalidResponse)
+//                        }
+//                    }
+//            }
+//            return Disposables.create()
+//        }
+//    }
+//
+//    func getGames() -> Observable<[GameResponse]> {
+//        return Observable<[GameResponse]>.create{observer in
+//            if let url = URL(string: Endpoints.Gets.games.url){
+//                AF.request(url)
+//                    .validate()
+//                    .responseDecodable(of: GamesResponse.self){ response in
+//                        switch response.result{
+//                        case .success(let value):
+//                            observer.onNext(value.results)
+//                            observer.onCompleted()
+//                        case .failure(let error):
+//                            observer.onError(error)
+//                        }
+//                    }
+//            }
+//            return Disposables.create()
+//        }
+//    }
+//
+//    func getGameDetail(input game : GameModel) -> Observable<GameDetailResponse> {
+//        return Observable<GameDetailResponse>.create{observer in
+//            let url_detail = Endpoints.Gets.detail.url + "\(game.id)"
+//            if let url = URL(string: url_detail){
+//                AF.request(url)
+//                    .validate()
+//                    .responseDecodable(of: GameDetailResponse.self){ response in
+//                        switch response.result{
+//                        case .success(let value):
+//                            observer.onNext(value)
+//                            observer.onCompleted()
+//                        case .failure(let error):
+//                            observer.onError(error)
+//                        }
+//                    }
+//            }
+//            return Disposables.create()
+//        }
+//    }
+//
     
 }

@@ -7,10 +7,11 @@
 
 import Foundation
 import RxSwift
+import Combine
 
 protocol DetailUseCase {
 
-  func getGameDetail() -> Observable<GameDetailModel>
+  func getGameDetailRemote() -> AnyPublisher<GameDetailModel,Error>
     
   func getGameDetail()-> GameDetailModel
 
@@ -31,7 +32,7 @@ class DetailInteractor: DetailUseCase {
   }
 
 
-  func getGameDetail() -> Observable<GameDetailModel> {
+  func getGameDetailRemote() -> AnyPublisher<GameDetailModel,Error>{
     return repository.getGameDetail(game: game)
   }
     

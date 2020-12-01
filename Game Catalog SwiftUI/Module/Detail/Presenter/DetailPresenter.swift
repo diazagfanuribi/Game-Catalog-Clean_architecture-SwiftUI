@@ -8,8 +8,11 @@
 
 import SwiftUI
 import RxSwift
+import Combine
 
 class DetailPresenter: ObservableObject {
+    
+  private var cancellables: Set<AnyCancellable> = []
 
   private let detailUseCase: DetailUseCase
   private let disposeBag = DisposeBag()
@@ -32,15 +35,18 @@ class DetailPresenter: ObservableObject {
     
     func getDetail(){
         self.loadingStateDetail=true
-        self.detailUseCase.getGameDetail()
-            .observeOn(mainSceduler)
-            .subscribe{result in
+        self.detailUseCase.getGameDetailRemote()
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: {completion in
+                switch completion{
+                case .failure:
+                    self.errorMessage = String(describing: completion)
+                case .finished:
+                    self.loadingStateDetail = false
+                }
+            }, receiveValue: { result in
                 self.gameDetail = result
-            } onError: { error in
-                self.errorMessage = error.localizedDescription
-              } onCompleted: {
-                self.loadingStateDetail = false
-              }.disposed(by: disposeBag)
+            }).store(in: &cancellables)
     }
 
 }
