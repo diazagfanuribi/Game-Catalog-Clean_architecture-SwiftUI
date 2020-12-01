@@ -7,7 +7,7 @@
 
 import XCTest
 
-class Game_Catalog_SwiftUIUITests: XCTestCase {
+class Game_CatalogUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
