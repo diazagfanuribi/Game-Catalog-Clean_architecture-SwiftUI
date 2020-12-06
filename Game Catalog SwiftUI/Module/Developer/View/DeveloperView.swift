@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DeveloperView: View {
-    var title : String
+    var title: String
     var body: some View {
         Text("This feature is still not available yet")
             .navigationTitle(title)

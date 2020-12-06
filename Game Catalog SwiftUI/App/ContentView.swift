@@ -10,28 +10,28 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var homePresenter: HomePresenter
     var body: some View {
-        TabView{
+        TabView {
             NavigationView {
               HomeView(presenter: homePresenter)
             }.tabItem {
                 TabItem(imageName: "house", title: "Home")
             }
-            NavigationView{
+            NavigationView {
                 SearchView()
             }.tabItem {
                 TabItem(imageName: "magnifyingglass", title: "Search")
             }
-            NavigationView{
+            NavigationView {
                 FavoriteView()
             }.tabItem {
                 TabItem(imageName: "star", title: "Favorite")
             }
-            NavigationView{
+            NavigationView {
                 AuthorView()
             }.tabItem {
                 TabItem(imageName: "person", title: "Author")
             }
-            
+
         }
 
     }

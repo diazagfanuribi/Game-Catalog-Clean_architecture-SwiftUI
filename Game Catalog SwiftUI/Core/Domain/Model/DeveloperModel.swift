@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct DeveloperModel : Equatable, Identifiable {
-    let id : Int
-    let name : String
+struct DeveloperModel: Equatable, Identifiable {
+    let id: Int
+    let name: String
     let imageUrl: String
 }

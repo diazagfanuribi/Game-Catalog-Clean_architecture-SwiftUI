@@ -8,30 +8,25 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-
 struct DetailView: View {
-    @ObservedObject var presenter : DetailPresenter
-        
+    @ObservedObject var presenter: DetailPresenter
+
     var body: some View {
-        ZStack{
-            if presenter.loadingState == true{
+        ZStack {
+            if presenter.loadingState == true {
                 Spacer()
-                ZStack{
+                ZStack {
                     ActivityIndicator()
                 }
                 Spacer()
-            }else {
-                DetailContentView(game : self.presenter.gameDetail)
+            } else {
+                DetailContentView(game: self.presenter.gameDetail)
             }
-            
 
         }
-        .onAppear{
+        .onAppear {
             self.presenter.getDetail()
         }
-        
-        
-        
+
     }
 }
-

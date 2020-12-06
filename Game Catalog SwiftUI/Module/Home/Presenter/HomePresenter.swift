@@ -6,26 +6,19 @@
 //
 import SwiftUI
 import Foundation
-import RxSwift
 import Combine
 
 class HomePresenter: ObservableObject {
-    
+
     private var cancellables: Set<AnyCancellable> = []
-
-
-    private let disposeBag = DisposeBag()
     private let router = HomeRouter()
     private let homeUseCase: HomeUseCase
 
-
-
     @Published var developer: [DeveloperModel] = []
-    @Published var game : [GameModel] = []
+    @Published var game: [GameModel] = []
     @Published var errorMessage: String = ""
     @Published var loadingStateDeveloperRow: Bool = false
-    @Published var loadingStateGameColumn : Bool = false
-    let mainSceduler = MainScheduler.instance
+    @Published var loadingStateGameColumn: Bool = false
     init(homeUseCase: HomeUseCase) {
     self.homeUseCase = homeUseCase
     }
@@ -52,7 +45,7 @@ class HomePresenter: ObservableObject {
       homeUseCase.getGames()
         .receive(on: RunLoop.main)
         .sink(receiveCompletion: { completion in
-            switch completion{
+            switch completion {
             case .failure:
                 self.errorMessage = String(describing: completion)
             case .finished:
@@ -63,7 +56,7 @@ class HomePresenter: ObservableObject {
         })
         .store(in: &cancellables)
     }
-  
+
   func linkBuilder<Content: View>(
     for game: GameModel,
     @ViewBuilder content: () -> Content
@@ -72,7 +65,6 @@ class HomePresenter: ObservableObject {
     destination: router.makeDetailView(for: game)) { content() }
   }
 
-    
     func linkDeveloperBuilder<Content: View>(
       for developer: DeveloperModel,
       @ViewBuilder content: () -> Content

@@ -10,33 +10,33 @@ import SwiftUI
 struct HomeView: View {
 
   @ObservedObject var presenter: HomePresenter
-  
+
   var body: some View {
-    
-    List{
-        
-        Group{
+
+    List {
+
+        Group {
             ZStack {
               if presenter.loadingStateDeveloperRow {
-                HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0) {
+                HStack(alignment: .center/*@END_MENU_TOKEN@*/, spacing: 0) {
                     Spacer()
                     ActivityIndicator()
                     Spacer()
                 }
               } else {
-                VStack(alignment: .leading, spacing: 0){
+                VStack(alignment: .leading, spacing: 0) {
                     Text("Game Developer")
                         .font(.title)
                         .fontWeight(.bold)
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack{
+                        HStack {
                             ForEach(
                               self.presenter.developer,
                               id: \.id
-                            ) { category in
+                            ) { developer in
                                 ZStack {
-                                    self.presenter.linkDeveloperBuilder(for: category){
-                                    CategoryRow(category: category)
+                                    self.presenter.linkDeveloperBuilder(for: developer) {
+                                    CategoryRow(developer: developer)
                                     }
                                 }
                             }
@@ -44,12 +44,11 @@ struct HomeView: View {
                     }
                 }
 
-                
               }
             }
         }
-        Group{
-            ZStack{
+        Group {
+            ZStack {
                 if presenter.loadingStateGameColumn {
                   HStack {
                     Spacer()
@@ -57,38 +56,38 @@ struct HomeView: View {
                     Spacer()
                   }
                 } else if presenter.errorMessage == "" {
-                    VStack(alignment: .leading, spacing: 16){
+                    VStack(alignment: .leading, spacing: 16) {
                         Text("Top Rating")
                             .font(.title)
                             .fontWeight(.bold)
-                        
+
                         ScrollView(.horizontal, showsIndicators: false) {
                             ForEach(
                               self.presenter.game,
                               id: \.id
                             ) { game in
-                                ZStack{
-                                    self.presenter.linkBuilder(for: game){
+                                ZStack {
+                                    self.presenter.linkBuilder(for: game) {
                                         NewReleasedColumn(game: game)
                                     }
                                 }
-                              
+
                             }
-                        
+
                         }
                     }
-                } else{
+                } else {
                     HStack {
                         Spacer()
                         Text("Error : \(self.presenter.errorMessage)")
                         Spacer()
                     }
                 }
-            
+
             }
-            
+
         }
-        
+
         Spacer()
     }.navigationBarTitle(
         Text("Game RAWG"),
@@ -99,7 +98,6 @@ struct HomeView: View {
         self.presenter.getCategories()
         }
         self.presenter.getGames()
-        
 
     }
   }

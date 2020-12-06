@@ -14,7 +14,7 @@ struct ActivityIndicator: UIViewRepresentable {
   ) -> UIActivityIndicatorView {
     return UIActivityIndicatorView(style: .large)
   }
-  
+
   func updateUIView(
     _ uiView: UIActivityIndicatorView,
     context: UIViewRepresentableContext<ActivityIndicator>
