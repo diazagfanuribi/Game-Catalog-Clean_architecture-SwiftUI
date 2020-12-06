@@ -20,21 +20,21 @@ protocol Endpoint {
 }
 
 enum Endpoints {
-  
+
   enum Gets: Endpoint {
     case developer
     case search
     case games
     case detail
-    
+
     public var url: String {
       switch self {
-      case .developer: return "\(API.baseUrl)developers?key=f942ea3f14aa47d1907cc9b86fa1caae"
+      case .developer: return "\(API.baseUrl)developers?key=fc062172c4ed48df8e7b9b99d442ded8"
       case .search: return "\(API.baseUrl)games?search=Avenger"
-      case .games: return "\(API.baseUrl)games?ordering=-rating&key=f942ea3f14aa47d1907cc9b86fa1caae&page_size=15"
+      case .games: return "\(API.baseUrl)games?ordering=-rating&key=fc062172c4ed48df8e7b9b99d442ded8&page_size=15"
       case .detail: return "\(API.baseUrl)games/"
       }
     }
   }
-  
+
 }

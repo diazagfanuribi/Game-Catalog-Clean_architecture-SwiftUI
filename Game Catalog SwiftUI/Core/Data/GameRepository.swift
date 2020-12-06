@@ -10,11 +10,11 @@ import RxSwift
 import Combine
 
 protocol GameRepositoryProtocol {
-    func getDeveloper() -> AnyPublisher<[DeveloperModel],Error>
-    
-    func getGames()-> AnyPublisher<[GameModel],Error>
-    
-    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel,Error>
+    func getDeveloper() -> AnyPublisher<[DeveloperModel], Error>
+
+    func getGames()-> AnyPublisher<[GameModel], Error>
+
+    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel, Error>
 }
 
 final class GameRepository: NSObject {
@@ -31,30 +31,28 @@ final class GameRepository: NSObject {
     }
 }
 
-extension GameRepository : GameRepositoryProtocol {
-    
-    
-    func getGames() -> AnyPublisher<[GameModel],Error> {
+extension GameRepository: GameRepositoryProtocol {
+
+    func getGames() -> AnyPublisher<[GameModel], Error> {
         return self.remote.getGames()
-            .map{
+            .map {
                 Mapper.mapGameResponsesToDomains(input: $0)
             }
-            .filter{ !$0.isEmpty}
+            .filter { !$0.isEmpty}
             .eraseToAnyPublisher()
     }
-    
-    func getDeveloper() -> AnyPublisher<[DeveloperModel],Error> {
+
+    func getDeveloper() -> AnyPublisher<[DeveloperModel], Error> {
         return self.remote.getDeveloper()
-            .map{Mapper.mapDeveloperResponsesToDomains(input: $0)}
+            .map {Mapper.mapDeveloperResponsesToDomains(input: $0)}
             .filter { !$0.isEmpty }
             .eraseToAnyPublisher()
     }
-    
-    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel,Error> {
+
+    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel, Error> {
         return self.remote.getGameDetail(input: game)
-            .map{Mapper.mapGameDetailResponseToDomain(input : $0)}
+            .map {Mapper.mapGameDetailResponseToDomain(input: $0)}
             .eraseToAnyPublisher()
     }
-    
-    
+
 }

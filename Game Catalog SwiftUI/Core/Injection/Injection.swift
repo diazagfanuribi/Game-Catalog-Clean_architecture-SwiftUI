@@ -8,7 +8,7 @@
 import Foundation
 
 final class Injection: NSObject {
-  
+
   private func provideRepository() -> GameRepositoryProtocol {
 
     let remote: RemoteDataSource = RemoteDataSource.sharedInstance
@@ -20,11 +20,10 @@ final class Injection: NSObject {
     let repository = provideRepository()
     return HomeInteractor(repository: repository)
   }
-    
+
     func provideDetail(game: GameModel) -> DetailUseCase {
       let repository = provideRepository()
       return DetailInteractor(repository: repository, game: game)
     }
-
 
 }
