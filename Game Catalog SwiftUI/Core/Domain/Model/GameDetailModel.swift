@@ -16,6 +16,7 @@ struct GameDetailModel: Equatable, Identifiable {
     let description: String
     let backgroundAdditional: String
     let website: String
+    let favorite: Bool
 
     var ratingRound: Double {
         guard rating == 0 else {

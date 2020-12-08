@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import Combine
+import os
 
 protocol GameRepositoryProtocol {
     func getDeveloper() -> AnyPublisher<[DeveloperModel], Error>
@@ -18,41 +19,111 @@ protocol GameRepositoryProtocol {
 }
 
 final class GameRepository: NSObject {
-    typealias GameInstance = (RemoteDataSource) -> GameRepository
+    let logger = Logger()
+    typealias GameInstance = (RemoteDataSource, LocaleDataSource) -> GameRepository
 
     fileprivate let remote: RemoteDataSource
+    fileprivate let locale: LocaleDataSource
 
-    private init( remote: RemoteDataSource) {
+    private init( remote: RemoteDataSource, locale: LocaleDataSource) {
       self.remote = remote
+      self.locale = locale
     }
 
-    static let sharedInstance: GameInstance = { remoteRepo in
-      return GameRepository(remote: remoteRepo)
+    static let sharedInstance: GameInstance = { remoteRepo, localeRepo in
+      return GameRepository(remote: remoteRepo, locale: localeRepo)
     }
 }
 
 extension GameRepository: GameRepositoryProtocol {
 
     func getGames() -> AnyPublisher<[GameModel], Error> {
-        return self.remote.getGames()
-            .map {
-                Mapper.mapGameResponsesToDomains(input: $0)
+        return self.locale.getGames()
+            .flatMap { result -> AnyPublisher<[GameModel], Error> in
+                if result.isEmpty {
+                    return self.remote.getGames()
+                        .map {
+                            Mapper.mapGameResponsesToDomains(input: $0)
+                        }
+                        .map {Mapper.mapGameDomaintoEntity(input: $0)}
+                        .catch {_ in self.locale.getGames()
+                        }
+                        .flatMap {
+                            self.locale.addGame(from: $0)
+                        }
+                        .filter {$0}
+                        .flatMap { _ in self.locale.getGames()
+                                .map {Mapper.mapGameEntityToDomain(input: $0)}
+                        }
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.locale.getGames()
+                        .map { Mapper.mapGameEntityToDomain(input: $0) }
+                        .eraseToAnyPublisher()
+                }
             }
-            .filter { !$0.isEmpty}
             .eraseToAnyPublisher()
+
     }
 
     func getDeveloper() -> AnyPublisher<[DeveloperModel], Error> {
-        return self.remote.getDeveloper()
-            .map {Mapper.mapDeveloperResponsesToDomains(input: $0)}
-            .filter { !$0.isEmpty }
+        return self.locale.getDeveloper()
+            .flatMap {result -> AnyPublisher<[DeveloperModel], Error> in
+                if result.isEmpty {
+                    return self.remote.getDeveloper()
+                        .map {
+                            Mapper.mapDeveloperResponsesToDomains(input: $0)
+                        }
+                        .map {Mapper.mapDeveloperDomaintoEntity(input: $0)}
+                        .catch {_ in self.locale.getDeveloper()
+                        }
+                        .flatMap {
+                            self.locale.addDeveloper(from: $0)
+                        }
+                        .filter {$0}
+                        .flatMap { _ in self.locale.getDeveloper()
+                                .map {Mapper.mapDeveloperEntityToDomain(input: $0)}
+                        }
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.locale.getDeveloper()
+                        .map {Mapper.mapDeveloperEntityToDomain(input: $0)}
+                        .eraseToAnyPublisher()
+                }
+            }
             .eraseToAnyPublisher()
     }
 
     func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel, Error> {
-        return self.remote.getGameDetail(input: game)
-            .map {Mapper.mapGameDetailResponseToDomain(input: $0)}
+        let ids = game.id
+        let res = self.locale.getGameDetail(by: ids)
+            .flatMap {result -> AnyPublisher<GameDetailModel, Error> in
+                if result.desc == "" && result.ids == 0 {
+                    return self.remote.getGameDetail(input: game)
+                        .map {
+                            Mapper.mapGameDetailResponseToDomain(input: $0)
+                        }
+                        .map {Mapper.mapGameDetailDomainToEntity(input: $0)}
+//                        .catch {
+//                            _ in self.locale.getGameDetail(by: ids)
+//                        }
+                        .flatMap {
+                            self.locale.addGameDetail(from: $0)
+                        }
+                        .filter {$0}
+                        .flatMap { _ in self.locale.getGameDetail(by: ids)
+                                .map {Mapper.mapGameDetailEntityToDomain(input: $0)}
+                            .eraseToAnyPublisher()
+                        }
+                        .eraseToAnyPublisher()
+                } else {
+                    return self.locale.getGameDetail(by: ids)
+                        .map {Mapper.mapGameDetailEntityToDomain(input: $0)}
+                        .eraseToAnyPublisher()
+                }
+            }
             .eraseToAnyPublisher()
+        return res
     }
 
 }

@@ -13,14 +13,14 @@ struct GamesResponse: Decodable {
 }
 
 struct GameResponse: Decodable {
-    let id: Int?
+    let ids: Int?
     let name: String?
     let rating: Double?
     let released: String?
     let background: String?
 
     private enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case ids = "id"
         case name = "name"
         case rating = "rating"
         case released = "released"
