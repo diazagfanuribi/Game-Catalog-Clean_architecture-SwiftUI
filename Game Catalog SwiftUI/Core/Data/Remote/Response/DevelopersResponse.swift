@@ -12,12 +12,12 @@ struct DevelopersResponse: Decodable {
 }
 
 struct DeveloperResponse: Decodable {
-    let id: Int?
+    let ids: Int?
     let name: String?
     let imageUrl: String?
 
     private enum CodingKeys: String, CodingKey {
-        case id = "id"
+        case ids = "id"
         case name = "name"
         case imageUrl = "image_background"
     }

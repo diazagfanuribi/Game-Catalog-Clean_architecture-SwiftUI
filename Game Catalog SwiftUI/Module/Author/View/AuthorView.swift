@@ -33,9 +33,11 @@ struct AuthorView: View {
 
         }
         .frame(width: 400, height: 500)
-        .background(LinearGradient(gradient: Gradient(colors: [Color("ColorDarkBlue"), Color("ColorLightBlue")]), startPoint: .top, endPoint: .bottom))
+        .background(LinearGradient(gradient: Gradient(colors: [Color("ColorDarkBlue"),
+                                                               Color("ColorLightBlue")]),
+                                                               startPoint: .top,
+                                                               endPoint: .bottom))
         .cornerRadius(10)
-
         .navigationBarTitle(
             Text("Author"),
             displayMode: .large

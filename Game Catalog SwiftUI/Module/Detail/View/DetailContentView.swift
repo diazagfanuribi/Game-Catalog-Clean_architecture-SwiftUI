@@ -17,9 +17,16 @@ struct DetailContentView: View {
                 WebImage(url: URL(string: game.background))
                     .resizable()
             }.aspectRatio(16/9, contentMode: .fit)
-            Text("Description")
-                .font(.title2)
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+            HStack {
+                Text("Description")
+                    .font(.title2)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                Spacer()
+                Image(systemName: "heart")
+                  .font(.system(size: 18))
+                  .foregroundColor(.pink)
+                    .padding(10)
+            }
 
             Text(game.description)
                 .multilineTextAlignment(.leading)
