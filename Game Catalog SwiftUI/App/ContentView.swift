@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var homePresenter: HomePresenter
+    @EnvironmentObject var favoritePresenter: FavoritePresenter
     var body: some View {
         TabView {
             NavigationView {
@@ -22,7 +23,7 @@ struct ContentView: View {
                 TabItem(imageName: "magnifyingglass", title: "Search")
             }
             NavigationView {
-                FavoriteView()
+                FavoriteView(presenter: favoritePresenter)
             }.tabItem {
                 TabItem(imageName: "star", title: "Favorite")
             }

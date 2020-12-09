@@ -18,10 +18,7 @@ struct GameDetailModel: Equatable, Identifiable {
     let website: String
     let favorite: Bool
 
-    var ratingRound: Double {
-        guard rating == 0 else {
-            return Double(round(100*rating)/100)
-        }
-        return rating
+    var ratingString: String {
+        return String(format: "%.2f", rating)
     }
 }

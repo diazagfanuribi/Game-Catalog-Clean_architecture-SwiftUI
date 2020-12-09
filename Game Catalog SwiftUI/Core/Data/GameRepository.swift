@@ -15,7 +15,12 @@ protocol GameRepositoryProtocol {
 
     func getGames()-> AnyPublisher<[GameModel], Error>
 
-    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel, Error>
+    func getGameDetail(game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error>
+
+    func getFavorite() -> AnyPublisher<[GameDetailModel], Error>
+
+    func updateFavorite(from game: GameDetailEntity) -> AnyPublisher<GameDetailModel, Error>
+
 }
 
 final class GameRepository: NSObject {
@@ -36,7 +41,16 @@ final class GameRepository: NSObject {
 }
 
 extension GameRepository: GameRepositoryProtocol {
-
+    func getFavorite() -> AnyPublisher<[GameDetailModel], Error> {
+        return self.locale.getFavorite()
+            .map { result in return result.map {Mapper.mapGameDetailEntityToDomain(input: $0)}}
+            .eraseToAnyPublisher()
+    }
+    func updateFavorite(from game: GameDetailEntity) -> AnyPublisher<GameDetailModel, Error> {
+        return self.locale.updateFavorite(by: game)
+            .map { Mapper.mapGameDetailEntityToDomain(input: $0)}
+            .eraseToAnyPublisher()
+    }
     func getGames() -> AnyPublisher<[GameModel], Error> {
         return self.locale.getGames()
             .flatMap { result -> AnyPublisher<[GameModel], Error> in
@@ -94,7 +108,7 @@ extension GameRepository: GameRepositoryProtocol {
             .eraseToAnyPublisher()
     }
 
-    func getGameDetail(game: GameModel) -> AnyPublisher<GameDetailModel, Error> {
+    func getGameDetail(game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error> {
         let ids = game.id
         let res = self.locale.getGameDetail(by: ids)
             .flatMap {result -> AnyPublisher<GameDetailModel, Error> in

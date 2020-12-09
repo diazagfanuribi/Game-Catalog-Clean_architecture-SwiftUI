@@ -11,7 +11,8 @@ import SwiftUI
 class HomeRouter {
 
   func makeDetailView(for game: GameModel) -> some View {
-    let detailUseCase = Injection.init().provideDetail(game: game)
+    let detail = Mapper.mapGameDomainToGameDetailDomain(input: game)
+    let detailUseCase = Injection.init().provideDetail(game: detail)
     let presenter = DetailPresenter(detailUseCase: detailUseCase)
     return DetailView(presenter: presenter)
   }

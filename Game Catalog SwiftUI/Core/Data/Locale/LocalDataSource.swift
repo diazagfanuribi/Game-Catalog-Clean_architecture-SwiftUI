@@ -13,10 +13,11 @@ protocol LocaleDataSourceProtocol: class {
     func getGames() -> AnyPublisher<[GameEntity], Error>
     func getDeveloper() -> AnyPublisher<[DeveloperEntity], Error>
     func getGameDetail(by ids: Int) -> AnyPublisher<GameDetailEntity, Error>
-    func updateGameDetail(by game: GameDetailEntity) -> AnyPublisher<Bool, Error>
+    func updateFavorite(by game: GameDetailEntity) -> AnyPublisher<GameDetailEntity, Error>
     func addGame(from games: [GameEntity]) -> AnyPublisher<Bool, Error>
     func addDeveloper(from developers: [DeveloperEntity])-> AnyPublisher<Bool, Error>
     func addGameDetail(from detail: GameDetailEntity)-> AnyPublisher<Bool, Error>
+    func getFavorite()-> AnyPublisher<[GameDetailEntity], Error>
 }
 
 final class LocaleDataSource: NSObject {
@@ -30,9 +31,7 @@ final class LocaleDataSource: NSObject {
   static let sharedInstance: (Realm?) -> LocaleDataSource = { realmDatabase in
     return LocaleDataSource(realm: realmDatabase)
   }
-
 }
-
 extension LocaleDataSource: LocaleDataSourceProtocol {
     func addGame(from games: [GameEntity]) -> AnyPublisher<Bool, Error> {
         return Future<Bool, Error> { completion in
@@ -99,6 +98,19 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
             }
         }.eraseToAnyPublisher()
     }
+    func getFavorite() -> AnyPublisher<[GameDetailEntity], Error> {
+        return Future<[GameDetailEntity], Error> { completion in
+            if let realm = self.realm {
+                let game = {
+                    realm.objects(GameDetailEntity.self)
+                        .filter("favorite = \(true)")
+                }()
+                completion(.success(game.toArray(ofType: GameDetailEntity.self)))
+            } else {
+                completion(.failure(DatabaseError.invalidInstance))
+            }
+        }.eraseToAnyPublisher()
+    }
     func getDeveloper() -> AnyPublisher<[DeveloperEntity], Error> {
         return Future<[DeveloperEntity], Error> { completion in
             if let realm = self.realm {
@@ -129,16 +141,16 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-    func updateGameDetail(by game: GameDetailEntity) -> AnyPublisher<Bool, Error> {
-        return Future<Bool, Error> { completion in
+    func updateFavorite(by game: GameDetailEntity) -> AnyPublisher<GameDetailEntity, Error> {
+        return Future<GameDetailEntity, Error> { completion in
             if let realm = self.realm, let detailEntity={
-                realm.objects(GameDetailEntity.self).filter("id = \(game.ids)")
+                realm.objects(GameDetailEntity.self).filter("ids = \(game.ids)")
             }().first {
                 do {
                     try realm.write {
-                        detailEntity.setValue(game.favorite, forKey: "favorite")
+                        detailEntity.setValue(!detailEntity.favorite, forKey: "favorite")
                     }
-                    completion(.success(true))
+                    completion(.success(detailEntity))
                 } catch {
                     completion(.failure(DatabaseError.requestFailed))
                 }

@@ -22,11 +22,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let homeUseCase = Injection.init().provideHome()
-
         let homePresenter = HomePresenter(homeUseCase: homeUseCase)
-
+        let favUseCase = Injection.init().provideFavorite()
+        let favoritePresenter = FavoritePresenter(favUseCase: favUseCase)
         let contentView = ContentView()
           .environmentObject(homePresenter)
+          .environmentObject(favoritePresenter)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

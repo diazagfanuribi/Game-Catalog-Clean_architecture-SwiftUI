@@ -15,16 +15,17 @@ protocol DetailUseCase {
 
   func getGameDetail() -> GameDetailModel
 
+  func updateFavorite(from game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error>
 }
 
 class DetailInteractor: DetailUseCase {
 
   private let repository: GameRepositoryProtocol
-  private let game: GameModel
+  private let game: GameDetailModel
 
   required init(
     repository: GameRepositoryProtocol,
-    game: GameModel
+    game: GameDetailModel
   ) {
     self.repository = repository
     self.game = game
@@ -34,16 +35,11 @@ class DetailInteractor: DetailUseCase {
     return repository.getGameDetail(game: game)
   }
 
-    func getGameDetail() -> GameDetailModel {
-        return GameDetailModel(id: game.id,
-                               name: game.name,
-                               rating: game.rating,
-                               released: game.released,
-                               background: game.background,
-                               description: "",
-                               backgroundAdditional: "",
-                               website: "",
-                               favorite: false)
+  func getGameDetail() -> GameDetailModel {
+        return game
+    }
+  func updateFavorite(from game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error> {
+        return repository.updateFavorite(from: Mapper.mapGameDetailDomainToEntity(input: game))
     }
 
 }

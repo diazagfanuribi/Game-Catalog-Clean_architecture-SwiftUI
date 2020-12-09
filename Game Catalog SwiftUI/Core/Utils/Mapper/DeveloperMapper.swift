@@ -110,4 +110,15 @@ final class Mapper {
         det.favorite = detail.favorite
         return det
     }
+    static func mapGameDomainToGameDetailDomain(input game: GameModel) -> GameDetailModel {
+        return GameDetailModel(id: game.id,
+                               name: game.name,
+                               rating: game.rating,
+                               released: game.released,
+                               background: game.background,
+                               description: "",
+                               backgroundAdditional: "",
+                               website: "",
+                               favorite: false)
+    }
 }

@@ -12,7 +12,7 @@ import Combine
 protocol RemoteDataSourceProtocol: class {
     func getDeveloper() -> AnyPublisher<[DeveloperResponse], Error>
     func getGames() -> AnyPublisher<[GameResponse], Error>
-    func getGameDetail(input game: GameModel) -> AnyPublisher<GameDetailResponse, Error>
+    func getGameDetail(input game: GameDetailModel) -> AnyPublisher<GameDetailResponse, Error>
 }
 
 final class RemoteDataSource: NSObject {
@@ -58,7 +58,7 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
         }.eraseToAnyPublisher()
     }
 
-    func getGameDetail(input game: GameModel) -> AnyPublisher<GameDetailResponse, Error> {
+    func getGameDetail(input game: GameDetailModel) -> AnyPublisher<GameDetailResponse, Error> {
         return Future<GameDetailResponse, Error> { completion in
             let urlDetail = Endpoints.Gets.detail.url + "\(game.id)"
             if let url = URL(string: urlDetail) {
