@@ -15,7 +15,4 @@ class FavoriteRouter {
       return DetailView(presenter: presenter)
     }
 
-      func makeDeveloperListView(input title: String) -> some View {
-          return DeveloperView(title: title)
-      }
 }

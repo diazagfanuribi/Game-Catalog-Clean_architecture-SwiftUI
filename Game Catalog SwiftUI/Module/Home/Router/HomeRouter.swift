@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class HomeRouter {
+
   func makeDetailView(for game: GameModel) -> some View {
     let detail = Mapper.mapGameDomainToGameDetailDomain(input: game)
     let detailUseCase = Injection.init().provideDetail(game: detail)
@@ -16,7 +17,9 @@ class HomeRouter {
     return DetailView(presenter: presenter)
   }
 
-    func makeDeveloperListView(input title: String) -> some View {
-        return DeveloperView(title: title)
+    func makeDeveloperListView(input developer: DeveloperModel) -> some View {
+        let developerUseCase = Injection.init().provideDeveloper(developer: developer)
+        let presenter = DeveloperPresenter(developerUseCase: developerUseCase)
+        return DeveloperView(title: developer.name, presenter: presenter)
     }
 }

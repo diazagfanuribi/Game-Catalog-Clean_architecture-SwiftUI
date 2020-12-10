@@ -13,6 +13,7 @@ protocol RemoteDataSourceProtocol: class {
     func getDeveloper() -> AnyPublisher<[DeveloperResponse], Error>
     func getGames() -> AnyPublisher<[GameResponse], Error>
     func getGameDetail(input game: GameDetailModel) -> AnyPublisher<GameDetailResponse, Error>
+    func getGamesByDeveloper(input developer: Int) -> AnyPublisher<[GameResponse], Error>
 }
 
 final class RemoteDataSource: NSObject {
@@ -55,7 +56,6 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-
     func getGameDetail(input game: GameDetailModel) -> AnyPublisher<GameDetailResponse, Error> {
         return Future<GameDetailResponse, Error> { completion in
             let urlDetail = Endpoints.Gets.detail.url + "\(game.id)"
@@ -73,5 +73,21 @@ extension RemoteDataSource: RemoteDataSourceProtocol {
             }
         }.eraseToAnyPublisher()
     }
-
+    func getGamesByDeveloper(input developer: Int) -> AnyPublisher<[GameResponse], Error> {
+        let urls = Endpoints.Gets.games.url + "&developers=\(developer)"
+        return Future<[GameResponse], Error> {completion in
+            if let url = URL(string: urls) {
+                AF.request(url)
+                    .validate()
+                    .responseDecodable(of: GamesResponse.self) { response in
+                        switch response.result {
+                        case .success(let value):
+                            completion(.success(value.results))
+                        case .failure(let error):
+                            completion(.failure(error))
+                        }
+                    }
+            }
+        }.eraseToAnyPublisher()
+    }
 }

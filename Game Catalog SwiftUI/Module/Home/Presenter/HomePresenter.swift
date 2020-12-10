@@ -69,6 +69,6 @@ class HomePresenter: ObservableObject {
       @ViewBuilder content: () -> Content
     ) -> some View {
       NavigationLink(
-        destination: router.makeDeveloperListView(input: developer.name)) { content() }
+        destination: router.makeDeveloperListView(input: developer)) { content() }
     }
 }

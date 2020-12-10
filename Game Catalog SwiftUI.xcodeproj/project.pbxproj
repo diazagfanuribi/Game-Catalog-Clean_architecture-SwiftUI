@@ -60,6 +60,9 @@
 		CEE6501225810F3E002C5E20 /* FavoriteColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6501125810F3E002C5E20 /* FavoriteColumn.swift */; };
 		CEE6501E2581BBFF002C5E20 /* ShimmeringCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6501D2581BBFF002C5E20 /* ShimmeringCardView.swift */; };
 		CEE650232581BF4E002C5E20 /* ShimmeringListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE650222581BF4E002C5E20 /* ShimmeringListView.swift */; };
+		CEE6502825820C08002C5E20 /* DeveloperInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6502725820C08002C5E20 /* DeveloperInteractor.swift */; };
+		CEE6502E25820D5D002C5E20 /* DeveloperPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6502D25820D5D002C5E20 /* DeveloperPresenter.swift */; };
+		CEE6503725820DAB002C5E20 /* DeveloperRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6503625820DAB002C5E20 /* DeveloperRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,6 +136,9 @@
 		CEE6501125810F3E002C5E20 /* FavoriteColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteColumn.swift; sourceTree = "<group>"; };
 		CEE6501D2581BBFF002C5E20 /* ShimmeringCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringCardView.swift; sourceTree = "<group>"; };
 		CEE650222581BF4E002C5E20 /* ShimmeringListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringListView.swift; sourceTree = "<group>"; };
+		CEE6502725820C08002C5E20 /* DeveloperInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInteractor.swift; sourceTree = "<group>"; };
+		CEE6502D25820D5D002C5E20 /* DeveloperPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperPresenter.swift; sourceTree = "<group>"; };
+		CEE6503625820DAB002C5E20 /* DeveloperRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -557,6 +563,7 @@
 				CE52B546255AD94F0022274A /* HomeInteractor.swift */,
 				CE52B54B255AD9710022274A /* DetailGameInteractor.swift */,
 				CE0558912580BABF00AB7767 /* FavoriteInteractor.swift */,
+				CEE6502725820C08002C5E20 /* DeveloperInteractor.swift */,
 			);
 			path = Usecase;
 			sourceTree = "<group>";
@@ -564,6 +571,8 @@
 		CED60FAF2574ECA100920D86 /* Developer */ = {
 			isa = PBXGroup;
 			children = (
+				CEE6503525820D9D002C5E20 /* Router */,
+				CEE6502C25820D41002C5E20 /* Presenter */,
 				CED60FB02574ECB800920D86 /* View */,
 			);
 			path = Developer;
@@ -575,6 +584,22 @@
 				CED60FB12574ECE800920D86 /* DeveloperView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		CEE6502C25820D41002C5E20 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				CEE6502D25820D5D002C5E20 /* DeveloperPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CEE6503525820D9D002C5E20 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				CEE6503625820DAB002C5E20 /* DeveloperRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -756,6 +781,7 @@
 				CE52B54C255AD9710022274A /* DetailGameInteractor.swift in Sources */,
 				CEE6501E2581BBFF002C5E20 /* ShimmeringCardView.swift in Sources */,
 				CE2F1C7E257CD57B00516199 /* GameEntity.swift in Sources */,
+				CEE6502825820C08002C5E20 /* DeveloperInteractor.swift in Sources */,
 				CE0251D8255CDD2500524A34 /* GameModel.swift in Sources */,
 				CEB07F70256517760002AD4C /* DetailView.swift in Sources */,
 				CE52B53D255AD5570022274A /* DeveloperModel.swift in Sources */,
@@ -770,11 +796,13 @@
 				CE52B547255AD94F0022274A /* HomeInteractor.swift in Sources */,
 				CE52B4F8255A9DD60022274A /* GamesResponse.swift in Sources */,
 				CE6A1CCF25801A59002170A6 /* FavoritePresenter.swift in Sources */,
+				CEE6502E25820D5D002C5E20 /* DeveloperPresenter.swift in Sources */,
 				CE0558922580BABF00AB7767 /* FavoriteInteractor.swift in Sources */,
 				CE52B52B255AD1550022274A /* GameRepository.swift in Sources */,
 				CE52B542255AD73A0022274A /* ErrorHandler.swift in Sources */,
 				CEE6501225810F3E002C5E20 /* FavoriteColumn.swift in Sources */,
 				CEB07F5A25650C5B0002AD4C /* GameDetailModel.swift in Sources */,
+				CEE6503725820DAB002C5E20 /* DeveloperRouter.swift in Sources */,
 				CE52B556255ADE5A0022274A /* HomeView.swift in Sources */,
 				CE05588D2580BA6B00AB7767 /* FavoriteRouter.swift in Sources */,
 				CE52B509255ABE110022274A /* APICall.swift in Sources */,

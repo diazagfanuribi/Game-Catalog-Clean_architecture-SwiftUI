@@ -9,16 +9,58 @@ import SwiftUI
 
 struct DeveloperView: View {
     var title: String
+    @ObservedObject var presenter: DeveloperPresenter
     var body: some View {
-        Text("This feature is still not available yet")
-            .navigationTitle(title)
-    }
-}
-
-struct DeveloperView_Previews: PreviewProvider {
-    static var previews: some View {
-        NavigationView {
-            DeveloperView(title: "Rockstar")
+        ScrollView {
+            Group {
+                VStack(alignment: .leading, spacing: 0) {
+                    ZStack {
+                        if presenter.loadingState {
+                            VStack {
+                                HStack {
+                                    Spacer()
+                                    ActivityIndicator()
+                                    Spacer()
+                                }
+                                ShimmeringListView()
+                                ShimmeringListView()
+                                ShimmeringListView()
+                                ShimmeringListView()
+                                ShimmeringListView()
+                                ShimmeringListView()
+                            }
+                        } else if presenter.errorMessage == "" {
+                            VStack(alignment: .leading, spacing: 16) {
+                                ScrollView(.horizontal, showsIndicators: false) {
+                                    ForEach(
+                                        self.presenter.game,
+                                        id: \.id
+                                    ) { game in
+                                        ZStack {
+                                            self.presenter.linkBuilder(for: game) {
+                                                NewReleasedColumn(game: game)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            HStack {
+                                Spacer()
+                                Text("Error : \(self.presenter.errorMessage)")
+                                Spacer()
+                            }
+                        }
+                    }
+                }
+            }.padding(.leading, 20)
+            Spacer()
+        }.navigationBarTitle(
+            Text(title),
+            displayMode: .automatic
+        )
+        .onAppear {
+            self.presenter.getGamesByDeveloper()
         }
     }
 }

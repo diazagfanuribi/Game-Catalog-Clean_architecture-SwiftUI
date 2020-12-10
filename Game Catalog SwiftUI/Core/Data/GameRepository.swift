@@ -16,7 +16,7 @@ protocol GameRepositoryProtocol {
     func getGameDetail(game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error>
     func getFavorite() -> AnyPublisher<[GameDetailModel], Error>
     func updateFavorite(from game: GameDetailEntity) -> AnyPublisher<GameDetailModel, Error>
-
+    func getGamesByDeveloper(input developer: Int) -> AnyPublisher<[GameModel], Error>
 }
 
 final class GameRepository: NSObject {
@@ -37,6 +37,11 @@ final class GameRepository: NSObject {
 }
 
 extension GameRepository: GameRepositoryProtocol {
+    func getGamesByDeveloper(input developer: Int) -> AnyPublisher<[GameModel], Error> {
+        return self.remote.getGamesByDeveloper(input: developer)
+            .map {Mapper.mapGameResponsesToDomains(input: $0)}
+            .eraseToAnyPublisher()
+    }
     func getFavorite() -> AnyPublisher<[GameDetailModel], Error> {
         return self.locale.getFavorite()
             .map { result in return result.map {Mapper.mapGameDetailEntityToDomain(input: $0)}}

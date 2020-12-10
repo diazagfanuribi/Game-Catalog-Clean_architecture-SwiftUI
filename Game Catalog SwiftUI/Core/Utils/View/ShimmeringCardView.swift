@@ -23,7 +23,7 @@ struct ShimmeringCardView: View {
             .transition(.opacity)
             .frame(width: UIScreen.main.bounds.width-32,
                    height: UIScreen.main.bounds.height/3)
-            .padding(.trailing,20)
+            .padding(.trailing, 20)
             .onAppear {
                 let baseAnimation = Animation.easeInOut(duration: Constants.duration)
                 let repeated = baseAnimation.repeatForever(autoreverses: true)
