@@ -58,6 +58,8 @@
 		CEB07F75256517910002AD4C /* DetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB07F74256517910002AD4C /* DetailPresenter.swift */; };
 		CED60FB22574ECE800920D86 /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED60FB12574ECE800920D86 /* DeveloperView.swift */; };
 		CEE6501225810F3E002C5E20 /* FavoriteColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6501125810F3E002C5E20 /* FavoriteColumn.swift */; };
+		CEE6501E2581BBFF002C5E20 /* ShimmeringCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE6501D2581BBFF002C5E20 /* ShimmeringCardView.swift */; };
+		CEE650232581BF4E002C5E20 /* ShimmeringListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE650222581BF4E002C5E20 /* ShimmeringListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,8 @@
 		CEB07F74256517910002AD4C /* DetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPresenter.swift; sourceTree = "<group>"; };
 		CED60FB12574ECE800920D86 /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
 		CEE6501125810F3E002C5E20 /* FavoriteColumn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteColumn.swift; sourceTree = "<group>"; };
+		CEE6501D2581BBFF002C5E20 /* ShimmeringCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringCardView.swift; sourceTree = "<group>"; };
+		CEE650222581BF4E002C5E20 /* ShimmeringListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmeringListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -521,6 +525,8 @@
 				CE52B55F255AE0790022274A /* ActivityIndicator.swift */,
 				CE49C5F6255BBEC100126DF7 /* BlurView.swift */,
 				CEB07F4A256508840002AD4C /* TabItem.swift */,
+				CEE6501D2581BBFF002C5E20 /* ShimmeringCardView.swift */,
+				CEE650222581BF4E002C5E20 /* ShimmeringListView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +754,7 @@
 				CE52B551255ADE480022274A /* HomePresenter.swift in Sources */,
 				CE2F1C84257CD5D000516199 /* DeveloperEntity.swift in Sources */,
 				CE52B54C255AD9710022274A /* DetailGameInteractor.swift in Sources */,
+				CEE6501E2581BBFF002C5E20 /* ShimmeringCardView.swift in Sources */,
 				CE2F1C7E257CD57B00516199 /* GameEntity.swift in Sources */,
 				CE0251D8255CDD2500524A34 /* GameModel.swift in Sources */,
 				CEB07F70256517760002AD4C /* DetailView.swift in Sources */,
@@ -758,6 +765,7 @@
 				CE2F1C8C257CD5EB00516199 /* GameDetailEntity.swift in Sources */,
 				CEB07F50256509CC0002AD4C /* HomeRouter.swift in Sources */,
 				CE52B55B255ADF500022274A /* CategoryRow.swift in Sources */,
+				CEE650232581BF4E002C5E20 /* ShimmeringListView.swift in Sources */,
 				CE52B4F0255A9CAB0022274A /* DevelopersResponse.swift in Sources */,
 				CE52B547255AD94F0022274A /* HomeInteractor.swift in Sources */,
 				CE52B4F8255A9DD60022274A /* GamesResponse.swift in Sources */,

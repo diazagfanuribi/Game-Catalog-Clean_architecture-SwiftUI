@@ -13,21 +13,26 @@ struct HomeView: View {
 
   var body: some View {
 
-    List {
+    ScrollView {
 
         Group {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Game Developer")
+                    .font(.title)
+                    .fontWeight(.bold)
             ZStack {
               if presenter.loadingStateDeveloperRow {
-                HStack(alignment: .center/*@END_MENU_TOKEN@*/, spacing: 0) {
-                    Spacer()
-                    ActivityIndicator()
-                    Spacer()
+                VStack {
+                    HStack(alignment: .center, spacing: 0) {
+                        Spacer()
+                        ActivityIndicator()
+                        Spacer()
+                    }
+                    ShimmeringCardView()
                 }
+
               } else {
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Game Developer")
-                        .font(.title)
-                        .fontWeight(.bold)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(
@@ -46,21 +51,29 @@ struct HomeView: View {
 
               }
             }
+            }
         }
+        .padding(.leading, 20)
         Group {
+            VStack(alignment: .leading, spacing: 0) {
+                Text("Top Rating")
+                    .font(.title)
+                    .fontWeight(.bold)
             ZStack {
                 if presenter.loadingStateGameColumn {
-                  HStack {
-                    Spacer()
-                    ActivityIndicator()
-                    Spacer()
-                  }
+                    VStack {
+                        HStack {
+                          Spacer()
+                          ActivityIndicator()
+                          Spacer()
+                        }
+                        ShimmeringListView()
+                        ShimmeringListView()
+                        ShimmeringListView()
+                    }
+
                 } else if presenter.errorMessage == "" {
                     VStack(alignment: .leading, spacing: 16) {
-                        Text("Top Rating")
-                            .font(.title)
-                            .fontWeight(.bold)
-
                         ScrollView(.horizontal, showsIndicators: false) {
                             ForEach(
                               self.presenter.game,
@@ -85,8 +98,8 @@ struct HomeView: View {
                 }
 
             }
-
         }
+        }.padding(.leading, 20)
 
         Spacer()
     }.navigationBarTitle(

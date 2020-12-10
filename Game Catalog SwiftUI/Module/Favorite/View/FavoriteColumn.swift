@@ -36,17 +36,3 @@ struct FavoriteColumn: View {
         }
     }
 }
-
-struct FavoriteColumn_Previews: PreviewProvider {
-    static var previews: some View {
-        let detail =
-            GameDetailModel(id: 1,
-                         name: "GTA V",
-                         rating: 4.0,
-                         released: "22-12-2020",
-                         background: "https://media.rawg.io/media/screenshots/47d/47d74c9b88068a72ce3f5c492b954480.jpg",
-                         description: "<p>From Frédérick Raynal, the creator of Alone in the Dark® .",
-                         backgroundAdditional: "https://media.rawg.io/media/screenshots/47d/47d74c9b88068a72ce3f5c492b954480.jpg", website: "www", favorite: false)
-            FavoriteColumn(game: detail)
-    }
-}

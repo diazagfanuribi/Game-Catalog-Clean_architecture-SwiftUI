@@ -11,15 +11,22 @@ struct FavoriteView: View {
     @ObservedObject var presenter: FavoritePresenter
     var body: some View {
 
-        List {
+        ScrollView {
             Group {
                 ZStack {
                     if presenter.loadingState {
-                      HStack {
-                        Spacer()
-                        ActivityIndicator()
-                        Spacer()
-                      }
+                        VStack {
+                            HStack {
+                              Spacer()
+                              ActivityIndicator()
+                              Spacer()
+                            }
+                            ShimmeringListView()
+                            ShimmeringListView()
+                            ShimmeringListView()
+                            ShimmeringListView()
+
+                        }
                     } else if presenter.errorMessage == "" {
                         VStack(alignment: .leading, spacing: 16) {
                             ScrollView(.horizontal, showsIndicators: false) {
@@ -37,12 +44,6 @@ struct FavoriteView: View {
 
                             }
                         }
-                    } else if presenter.game.count == 0 {
-                        VStack {
-                            Spacer()
-                            Text("The List is Empty")
-                            Spacer()
-                        }
                     } else {
                         HStack {
                             Spacer()
@@ -54,6 +55,7 @@ struct FavoriteView: View {
                 }
 
             }
+            .padding()
 
             Spacer()
         }.navigationBarTitle(
