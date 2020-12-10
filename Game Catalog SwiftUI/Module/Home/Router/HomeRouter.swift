@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 class HomeRouter {
-
   func makeDetailView(for game: GameModel) -> some View {
     let detail = Mapper.mapGameDomainToGameDetailDomain(input: game)
     let detailUseCase = Injection.init().provideDetail(game: detail)

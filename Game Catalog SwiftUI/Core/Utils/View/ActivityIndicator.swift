@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ActivityIndicator: UIViewRepresentable {
-
   func makeUIView(
     context: UIViewRepresentableContext<ActivityIndicator>
   ) -> UIActivityIndicatorView {

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct TabItem: View {
-
   var imageName: String
   var title: String
   var body: some View {

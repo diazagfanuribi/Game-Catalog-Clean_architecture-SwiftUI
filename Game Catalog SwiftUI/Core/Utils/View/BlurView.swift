@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 
 struct BlurView: UIViewRepresentable {
-
   func makeUIView(
     context: UIViewRepresentableContext<BlurView>
   ) -> UIView {

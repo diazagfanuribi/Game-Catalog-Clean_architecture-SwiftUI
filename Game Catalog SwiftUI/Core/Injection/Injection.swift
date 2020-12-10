@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 final class Injection: NSObject {
-
   private func provideRepository() -> GameRepositoryProtocol {
     let realm = try? Realm()
 

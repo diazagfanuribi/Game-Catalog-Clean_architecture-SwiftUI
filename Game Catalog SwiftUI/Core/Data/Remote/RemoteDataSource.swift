@@ -16,9 +16,7 @@ protocol RemoteDataSourceProtocol: class {
 }
 
 final class RemoteDataSource: NSObject {
-
   private override init() { }
-
   static let sharedInstance: RemoteDataSource =  RemoteDataSource()
 
 }

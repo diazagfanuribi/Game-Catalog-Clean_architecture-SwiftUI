@@ -8,7 +8,6 @@
 import Foundation
 
 enum URLError: LocalizedError {
-
   case invalidResponse
   case addressUnreachable(URL)
 
@@ -18,11 +17,9 @@ enum URLError: LocalizedError {
     case .addressUnreachable(let url): return "\(url.absoluteString) is unreachable."
     }
   }
-
 }
 
 enum DatabaseError: LocalizedError {
-
   case invalidInstance
   case requestFailed
 

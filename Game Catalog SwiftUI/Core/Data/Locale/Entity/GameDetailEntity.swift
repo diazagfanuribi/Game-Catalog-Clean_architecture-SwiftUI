@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 class GameDetailEntity: Object {
-
   @objc dynamic var ids: Int = 0
   @objc dynamic var name: String = ""
   @objc dynamic var rating: Double = 0

@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
-
   @ObservedObject var presenter: HomePresenter
-
   var body: some View {
-
     ScrollView {
-
         Group {
             VStack(alignment: .leading, spacing: 0) {
                 Text("Game Developer")

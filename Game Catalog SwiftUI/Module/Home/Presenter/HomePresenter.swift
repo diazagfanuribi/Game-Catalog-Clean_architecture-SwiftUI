@@ -9,7 +9,6 @@ import Foundation
 import Combine
 
 class HomePresenter: ObservableObject {
-
     private var cancellables: Set<AnyCancellable> = []
     private let router = HomeRouter()
     private let homeUseCase: HomeUseCase

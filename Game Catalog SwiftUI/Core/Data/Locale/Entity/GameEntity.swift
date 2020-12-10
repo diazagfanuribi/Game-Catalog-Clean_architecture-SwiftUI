@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 class GameEntity: Object {
-
   @objc dynamic var ids: Int = 0
   @objc dynamic var name: String = ""
   @objc dynamic var released: String = ""

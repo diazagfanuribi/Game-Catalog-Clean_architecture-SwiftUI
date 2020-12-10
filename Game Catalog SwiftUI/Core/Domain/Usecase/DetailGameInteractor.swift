@@ -10,16 +10,12 @@ import RxSwift
 import Combine
 
 protocol DetailUseCase {
-
   func getGameDetailRemote() -> AnyPublisher<GameDetailModel, Error>
-
   func getGameDetail() -> GameDetailModel
-
   func updateFavorite(from game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error>
 }
 
 class DetailInteractor: DetailUseCase {
-
   private let repository: GameRepositoryProtocol
   private let game: GameDetailModel
 

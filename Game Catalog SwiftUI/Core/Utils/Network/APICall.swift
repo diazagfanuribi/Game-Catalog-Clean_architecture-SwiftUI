@@ -8,19 +8,15 @@
 import Foundation
 
 struct API {
-
   static let baseUrl = "https://api.rawg.io/api/"
 
 }
 
 protocol Endpoint {
-
   var url: String { get }
-
 }
 
 enum Endpoints {
-
   enum Gets: Endpoint {
     case developer
     case search

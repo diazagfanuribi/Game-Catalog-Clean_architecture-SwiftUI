@@ -12,13 +12,9 @@ import os
 
 protocol GameRepositoryProtocol {
     func getDeveloper() -> AnyPublisher<[DeveloperModel], Error>
-
     func getGames()-> AnyPublisher<[GameModel], Error>
-
     func getGameDetail(game: GameDetailModel) -> AnyPublisher<GameDetailModel, Error>
-
     func getFavorite() -> AnyPublisher<[GameDetailModel], Error>
-
     func updateFavorite(from game: GameDetailEntity) -> AnyPublisher<GameDetailModel, Error>
 
 }

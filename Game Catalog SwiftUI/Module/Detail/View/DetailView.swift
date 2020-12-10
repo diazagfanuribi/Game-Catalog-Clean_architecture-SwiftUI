@@ -10,7 +10,6 @@ import SDWebImageSwiftUI
 
 struct DetailView: View {
     @ObservedObject var presenter: DetailPresenter
-
     var body: some View {
         ZStack {
             if presenter.loadingState == true {

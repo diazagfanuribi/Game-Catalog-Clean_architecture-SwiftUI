@@ -8,7 +8,6 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CategoryRow: View {
-
   var developer: DeveloperModel
   var body: some View {
     ZStack(alignment: .bottomLeading) {

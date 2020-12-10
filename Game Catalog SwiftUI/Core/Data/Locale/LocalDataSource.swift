@@ -21,7 +21,6 @@ protocol LocaleDataSourceProtocol: class {
 }
 
 final class LocaleDataSource: NSObject {
-
   private let realm: Realm?
 
   private init(realm: Realm?) {
@@ -163,7 +162,6 @@ extension LocaleDataSource: LocaleDataSourceProtocol {
 }
 
 extension Results {
-
   func toArray<T>(ofType: T.Type) -> [T] {
     var array = [T]()
     for index in 0 ..< count {
