@@ -15,6 +15,8 @@ struct CategoryRow: View {
         content
     }.frame(height: UIScreen.main.bounds.height/3)
     .background(Color.black.opacity(0.05))
+    .padding(.leading, 20)
+
   }
 
 }

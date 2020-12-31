@@ -32,6 +32,7 @@ struct NewReleasedColumn: View {
                 Spacer()
             }.frame(width: UIScreen.main.bounds.width, height: 100, alignment: .center/*@END_MENU_TOKEN@*/)
 
-        }
+        }.padding(.leading, 20)
+
     }
 }

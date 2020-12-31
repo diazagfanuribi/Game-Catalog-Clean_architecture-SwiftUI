@@ -16,6 +16,8 @@ struct HomeView: View {
                     Text("Game Developer")
                         .font(.title)
                         .fontWeight(.bold)
+                        .padding(.leading, 20)
+
                     ZStack {
                         if presenter.loadingStateDeveloperRow {
                             VStack {
@@ -47,12 +49,13 @@ struct HomeView: View {
                     }
                 }
             }
-            .padding(.leading, 20)
             Group {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("Top Rating")
                         .font(.title)
                         .fontWeight(.bold)
+                        .padding(.leading, 20)
+
                     ZStack {
                         if presenter.loadingStateGameColumn {
                             VStack {
@@ -89,9 +92,10 @@ struct HomeView: View {
                         }
                     }
                 }
-            }.padding(.leading, 20)
+            }
             Spacer()
-        }.navigationBarTitle(
+        }
+        .navigationBarTitle(
             Text("Game RAWG"),
             displayMode: .automatic
         )

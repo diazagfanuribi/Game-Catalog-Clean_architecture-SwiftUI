@@ -28,7 +28,7 @@ struct DeveloperView: View {
                                 ShimmeringListView()
                                 ShimmeringListView()
                                 ShimmeringListView()
-                            }
+                            }.padding(.leading, 20)
                         } else if presenter.errorMessage == "" {
                             VStack(alignment: .leading, spacing: 16) {
                                 ScrollView(.horizontal, showsIndicators: false) {
@@ -53,7 +53,7 @@ struct DeveloperView: View {
                         }
                     }
                 }
-            }.padding(.leading, 20)
+            }
             Spacer()
         }.navigationBarTitle(
             Text(title),

@@ -119,9 +119,6 @@ extension GameRepository: GameRepositoryProtocol {
                             Mapper.mapGameDetailResponseToDomain(input: $0)
                         }
                         .map {Mapper.mapGameDetailDomainToEntity(input: $0)}
-//                        .catch {
-//                            _ in self.locale.getGameDetail(by: ids)
-//                        }
                         .flatMap {
                             self.locale.addGameDetail(from: $0)
                         }
