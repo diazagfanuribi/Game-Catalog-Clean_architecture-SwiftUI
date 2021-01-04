@@ -12,6 +12,8 @@
 		CE05588D2580BA6B00AB7767 /* FavoriteRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE05588C2580BA6B00AB7767 /* FavoriteRouter.swift */; };
 		CE0558922580BABF00AB7767 /* FavoriteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0558912580BABF00AB7767 /* FavoriteInteractor.swift */; };
 		CE0B208A255E749D0085E1C8 /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0B2089255E749D0085E1C8 /* Injection.swift */; };
+		CE0EFF0F25A2F95B00577D53 /* Core in Frameworks */ = {isa = PBXBuildFile; productRef = CE0EFF0E25A2F95B00577D53 /* Core */; };
+		CE0EFF1125A2F96100577D53 /* Game in Frameworks */ = {isa = PBXBuildFile; productRef = CE0EFF1025A2F96100577D53 /* Game */; };
 		CE1C9A322566DF32004927F2 /* AuthorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C9A312566DF32004927F2 /* AuthorView.swift */; };
 		CE1C9A372566E0CB004927F2 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C9A362566E0CB004927F2 /* FavoriteView.swift */; };
 		CE2F1C7E257CD57B00516199 /* GameEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F1C7D257CD57B00516199 /* GameEntity.swift */; };
@@ -88,6 +90,8 @@
 		CE05588C2580BA6B00AB7767 /* FavoriteRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteRouter.swift; sourceTree = "<group>"; };
 		CE0558912580BABF00AB7767 /* FavoriteInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteInteractor.swift; sourceTree = "<group>"; };
 		CE0B2089255E749D0085E1C8 /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
+		CE0EFF0525A2611800577D53 /* Core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Core; path = Modules/Core; sourceTree = "<group>"; };
+		CE0EFF0925A2D8E700577D53 /* Game */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Game; path = Modules/Game; sourceTree = "<group>"; };
 		CE1C9A312566DF32004927F2 /* AuthorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorView.swift; sourceTree = "<group>"; };
 		CE1C9A362566E0CB004927F2 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		CE2F1C7D257CD57B00516199 /* GameEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEntity.swift; sourceTree = "<group>"; };
@@ -151,6 +155,8 @@
 				CE52B515255AC4610022274A /* SDWebImageSwiftUI in Frameworks */,
 				CE52B523255ACBF60022274A /* RxSwift in Frameworks */,
 				CE52B51B255ACA8D0022274A /* Alamofire in Frameworks */,
+				CE0EFF0F25A2F95B00577D53 /* Core in Frameworks */,
+				CE0EFF1125A2F96100577D53 /* Game in Frameworks */,
 				CE2F1C92257CE3B500516199 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +186,13 @@
 			path = Injection;
 			sourceTree = "<group>";
 		};
+		CE0EFF0D25A2F95B00577D53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CE2F1C7C257CD55100516199 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
@@ -193,10 +206,13 @@
 		CE52B44E255A8A0E0022274A = {
 			isa = PBXGroup;
 			children = (
+				CE0EFF0925A2D8E700577D53 /* Game */,
+				CE0EFF0525A2611800577D53 /* Core */,
 				CE52B459255A8A0E0022274A /* Game Catalog SwiftUI */,
 				CE52B470255A8A0F0022274A /* Game Catalog SwiftUITests */,
 				CE52B47B255A8A0F0022274A /* Game Catalog SwiftUIUITests */,
 				CE52B458255A8A0E0022274A /* Products */,
+				CE0EFF0D25A2F95B00577D53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -626,6 +642,8 @@
 				CE52B522255ACBF60022274A /* RxSwift */,
 				CE2F1C91257CE3B500516199 /* Realm */,
 				CE2F1C93257CE3B500516199 /* RealmSwift */,
+				CE0EFF0E25A2F95B00577D53 /* Core */,
+				CE0EFF1025A2F96100577D53 /* Game */,
 			);
 			productName = "Game Catalog SwiftUI";
 			productReference = CE52B457255A8A0E0022274A /* Game Catalog SwiftUI.app */;
@@ -1177,6 +1195,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE0EFF0E25A2F95B00577D53 /* Core */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Core;
+		};
+		CE0EFF1025A2F96100577D53 /* Game */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Game;
+		};
 		CE2F1C91257CE3B500516199 /* Realm */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CE2F1C90257CE3B500516199 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
