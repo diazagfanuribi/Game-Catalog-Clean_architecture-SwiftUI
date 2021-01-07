@@ -7,6 +7,8 @@
 
 import UIKit
 import SwiftUI
+import Core
+import Game
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -21,10 +23,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let homeUseCase = Injection.init().provideHome()
-        let homePresenter = HomePresenter(homeUseCase: homeUseCase)
-        let favUseCase = Injection.init().provideFavorite()
-        let favoritePresenter = FavoritePresenter(favUseCase: favUseCase)
+        let gameUseCase: Interactor<String,[GameModel], GetGameRepository<GetGamesLocaleDataSource,GetGamesRemoteDataSource,GamesTransformer>> = Injection.init().provideGame()
+        let developerUseCase : Interactor<String,[DeveloperModel],GetDeveloperRepository
+        <GetDeveloperLocaleDataSource, GetDeveloperRemoteDataSource,DeveloperTransformer>>
+            = Injection.init().provideDeveloper()
+        let homePresenter = GetHomePresenter(gameUseCase: gameUseCase , developerUseCase: developerUseCase)
+        let favUseCase : Interactor<
+            String,
+            [GameDetailModel],
+            GetFavoriteRepository<GetFavoriteLocaleDataSource,FavoriteTransformer>> = Injection.init().provideFavorites()
+        let favoritePresenter = GetListPresenter(useCase: favUseCase)
         let contentView = ContentView()
           .environmentObject(homePresenter)
           .environmentObject(favoritePresenter)

@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import Core
+import Game
 
 struct ContentView: View {
-    @EnvironmentObject var homePresenter: HomePresenter
-    @EnvironmentObject var favoritePresenter: FavoritePresenter
+    @EnvironmentObject var homePresenter: GetHomePresenter<
+        Interactor<String,[DeveloperModel],GetDeveloperRepository<GetDeveloperLocaleDataSource,GetDeveloperRemoteDataSource,DeveloperTransformer>>,
+        Interactor<String,[GameModel], GetGameRepository<GetGamesLocaleDataSource,GetGamesRemoteDataSource,GamesTransformer>>
+        >
+    @EnvironmentObject var favoritePresenter : GetListPresenter<String, GameDetailModel, Interactor<String, [GameDetailModel], GetFavoriteRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
     var body: some View {
         TabView {
             NavigationView {

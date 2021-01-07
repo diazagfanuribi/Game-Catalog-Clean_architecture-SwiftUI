@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Game
+
 struct NewReleasedColumn: View {
     var game: GameModel
     var body: some View {

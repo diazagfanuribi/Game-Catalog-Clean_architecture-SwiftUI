@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import Game
+import Core
 
 struct FavoriteView: View {
-    @ObservedObject var presenter: FavoritePresenter
+    @ObservedObject var presenter: GetListPresenter<String, GameDetailModel, Interactor<String, [GameDetailModel], GetFavoriteRepository<GetFavoriteLocaleDataSource, FavoriteTransformer>>>
     var body: some View {
 
         ScrollView {
             Group {
                 ZStack {
-                    if presenter.loadingState {
+                    if presenter.isLoading {
                         VStack {
                             HStack {
                               Spacer()
@@ -31,15 +33,13 @@ struct FavoriteView: View {
                         VStack(alignment: .leading, spacing: 16) {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 ForEach(
-                                  self.presenter.game,
+                                  self.presenter.list,
                                   id: \.id
                                 ) { game in
-                                    ZStack {
-                                        self.presenter.linkBuilder(for: game) {
-                                            FavoriteColumn(game: game)
-                                        }
+                                    self.linkBuilder(for: game){
+                                        FavoriteColumn(game: game)
                                     }
-
+                                    
                                 }
 
                             }
@@ -63,8 +63,16 @@ struct FavoriteView: View {
               displayMode: .automatic
           )
         .onAppear {
-            self.presenter.getGames()
+            self.presenter.getList(request: nil)
 
         }
+    }
+    
+    func linkBuilder<Content: View>(
+      for game: GameDetailModel,
+      @ViewBuilder content: () -> Content
+    ) -> some View {
+      NavigationLink(
+      destination: FavoriteRouter().makeDetailView(for: game)) { content() }
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Game
 
 struct FavoriteColumn: View {
     var game: GameDetailModel

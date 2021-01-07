@@ -8,6 +8,7 @@
 import Foundation
 import Alamofire
 import Combine
+import Game
 
 protocol RemoteDataSourceProtocol: class {
     func getDeveloper() -> AnyPublisher<[DeveloperResponse], Error>

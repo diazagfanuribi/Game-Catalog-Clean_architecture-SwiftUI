@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import Core
+import Game
 
 struct DeveloperView: View {
-    var title: String
-    @ObservedObject var presenter: DeveloperPresenter
+    var developer: DeveloperModel
+    @ObservedObject var presenter: GetListPresenter<String, GameModel,Interactor<String,[GameModel],GetGamesByDeveloperRepository<GetGameByDeveloperRemoteDataSource,GamesTransformer>>>
     var body: some View {
         ScrollView {
             Group {
                 VStack(alignment: .leading, spacing: 0) {
                     ZStack {
-                        if presenter.loadingState {
+                        if presenter.isLoading {
                             VStack {
                                 HStack {
                                     Spacer()
@@ -28,16 +30,16 @@ struct DeveloperView: View {
                                 ShimmeringListView()
                                 ShimmeringListView()
                                 ShimmeringListView()
-                            }.padding(.leading, 20)
+                            }
                         } else if presenter.errorMessage == "" {
                             VStack(alignment: .leading, spacing: 16) {
                                 ScrollView(.horizontal, showsIndicators: false) {
                                     ForEach(
-                                        self.presenter.game,
+                                        self.presenter.list,
                                         id: \.id
                                     ) { game in
                                         ZStack {
-                                            self.presenter.linkBuilder(for: game) {
+                                            self.linkBuilder(for: game) {
                                                 NewReleasedColumn(game: game)
                                             }
                                         }
@@ -45,22 +47,30 @@ struct DeveloperView: View {
                                 }
                             }
                         } else {
-                            HStack {
+                            VStack {
                                 Spacer()
                                 Text("Error : \(self.presenter.errorMessage)")
                                 Spacer()
+
                             }
                         }
                     }
                 }
             }
-            Spacer()
         }.navigationBarTitle(
-            Text(title),
+            Text(developer.name),
             displayMode: .automatic
         )
         .onAppear {
-            self.presenter.getGamesByDeveloper()
+            self.presenter.getList(request: String(developer.id))
         }
+    }
+    
+    func linkBuilder<Content: View>(
+      for game: GameModel,
+      @ViewBuilder content: () -> Content
+    ) -> some View {
+      NavigationLink(
+      destination: DeveloperRouter().makeDetailView(for: game)) { content() }
     }
 }

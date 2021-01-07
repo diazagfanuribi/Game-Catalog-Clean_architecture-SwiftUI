@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import SDWebImageSwiftUI
+import Game
 
 struct CategoryRow: View {
   var developer: DeveloperModel
@@ -52,18 +53,6 @@ extension CategoryRow {
 
 }
 
-struct CategoryRow_Previews: PreviewProvider {
-
-  static var previews: some View {
-    let meal = DeveloperModel(
-      id: 1,
-      name: "Beef",
-      imageUrl: "https://media.rawg.io/media/games/2ad/2ad87a4a69b1104f02435c14c5196095.jpg"
-    )
-    return CategoryRow(developer: meal)
-  }
-
-}
 
 extension Color {
 

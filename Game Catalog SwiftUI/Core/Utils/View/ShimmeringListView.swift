@@ -22,6 +22,7 @@ struct ShimmeringListView: View {
             .opacity(opacity)
             .transition(.opacity)
             .frame(width: UIScreen.main.bounds.width-20, height: 100, alignment: .center)
+            .padding(.leading, 20)
             .padding(.trailing, 20)
             .onAppear {
                 let baseAnimation = Animation.easeInOut(duration: Constants.duration)

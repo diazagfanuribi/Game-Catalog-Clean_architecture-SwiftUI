@@ -1,25 +1,26 @@
+////
+////  DeveloperInteractor.swift
+////  Game Catalog SwiftUI
+////
+////  Created by DiazAgfa on 10/12/20.
+////
 //
-//  DeveloperInteractor.swift
-//  Game Catalog SwiftUI
+//import Foundation
+//import Combine
+//import Game
 //
-//  Created by DiazAgfa on 10/12/20.
+//protocol DeveloperUseCase {
+//    func getGameByDeveloper() -> AnyPublisher<[GameModel], Error>
+//}
+//class DeveloperInteractor: DeveloperUseCase {
+//    private let repository: GameRepositoryProtocol
+//    private let developer: DeveloperModel
 //
-
-import Foundation
-import Combine
-
-protocol DeveloperUseCase {
-    func getGameByDeveloper() -> AnyPublisher<[GameModel], Error>
-}
-class DeveloperInteractor: DeveloperUseCase {
-    private let repository: GameRepositoryProtocol
-    private let developer: DeveloperModel
-
-    required init(repository: GameRepositoryProtocol, developer: DeveloperModel) {
-      self.repository = repository
-        self.developer = developer
-    }
-    func getGameByDeveloper() -> AnyPublisher<[GameModel], Error> {
-        return repository.getGamesByDeveloper(input: developer.id)
-    }
-}
+//    required init(repository: GameRepositoryProtocol, developer: DeveloperModel) {
+//      self.repository = repository
+//        self.developer = developer
+//    }
+//    func getGameByDeveloper() -> AnyPublisher<[GameModel], Error> {
+//        return repository.getGamesByDeveloper(input: developer.id)
+//    }
+//}

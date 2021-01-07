@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import Core
+import Game
 
 struct HomeView: View {
-    @ObservedObject var presenter: HomePresenter
+    @ObservedObject var presenter: GetHomePresenter<
+        Interactor<String,[DeveloperModel],GetDeveloperRepository<GetDeveloperLocaleDataSource,GetDeveloperRemoteDataSource,DeveloperTransformer>>,
+        Interactor<String,[GameModel], GetGameRepository<GetGamesLocaleDataSource,GetGamesRemoteDataSource,GamesTransformer>>
+        >
     var body: some View {
         ScrollView {
             Group {
@@ -26,7 +31,7 @@ struct HomeView: View {
                                     ActivityIndicator()
                                     Spacer()
                                 }
-                                ShimmeringCardView()
+                                ShimmeringCardView().padding(.leading, 20)
                             }
                         } else {
                             VStack(alignment: .leading, spacing: 0) {
@@ -37,7 +42,7 @@ struct HomeView: View {
                                             id: \.id
                                         ) { developer in
                                             ZStack {
-                                                self.presenter.linkDeveloperBuilder(for: developer) {
+                                                self.linkDeveloperBuilder(for: developer) {
                                                     CategoryRow(developer: developer)
                                                 }
                                             }
@@ -76,7 +81,7 @@ struct HomeView: View {
                                         id: \.id
                                     ) { game in
                                         ZStack {
-                                            self.presenter.linkBuilder(for: game) {
+                                            self.linkBuilder(for: game) {
                                                 NewReleasedColumn(game: game)
                                             }
                                         }
@@ -101,9 +106,26 @@ struct HomeView: View {
         )
         .onAppear {
             if self.presenter.developer.count == 0 {
-                self.presenter.getCategories()
+                self.presenter.getDeveloper(request: "")
             }
-            self.presenter.getGames()            
+            self.presenter.getGame(request: "")
         }
     }
+    
+    
+    func linkBuilder<Content: View>(
+      for game: GameModel,
+      @ViewBuilder content: () -> Content
+    ) -> some View {
+      NavigationLink(
+      destination: HomeRouter().makeDetailView(for: game)) { content() }
+    }
+
+      func linkDeveloperBuilder<Content: View>(
+        for developer: DeveloperModel,
+        @ViewBuilder content: () -> Content
+      ) -> some View {
+        NavigationLink(
+          destination: HomeRouter().makeDeveloperListView(input: developer)) { content() }
+      }
 }

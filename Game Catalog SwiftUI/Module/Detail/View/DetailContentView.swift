@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import Game
 
 struct DetailContentView: View {
     var game: GameDetailModel
